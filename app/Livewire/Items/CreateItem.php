@@ -58,11 +58,7 @@ class CreateItem extends Component implements HasActions, HasSchemas
                             ->searchable()
                             ->preload()
                             ->native(false),
-                        ImageColumn::make('image')
-                            ->label('Item Image')
-                            ->disk('public')
-                            ->square()
-                            ->required(),
+                        
                         ToggleButtons::make('status')
                             ->label('Is this Item Active?')
                             ->options([

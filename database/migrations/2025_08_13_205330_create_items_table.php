@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('sku')->unique(); 
+            $table->string('sku')->unique()->nullable(); 
             $table->decimal('price', 8, 2);
             $table->enum('status',['active','inactive'])->default('active');
             // add fields images, variations

@@ -17,6 +17,7 @@ use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Tables\Columns\ImageColumn;
 
 class ListPaymentMethods extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -29,9 +30,16 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
         return $table
             ->query(fn (): Builder => PaymentMethod::query())
             ->columns([
+                ImageColumn::make('logo')
+                    
+                    ->disk('public')
+                    ->width(100)
+                    ->height(70)
+                    ->circular(),
                 TextColumn::make('name')
                 ->searchable()
                 ->sortable(),
+
                 TextColumn::make('description')
                 ->limit(50)
             ])

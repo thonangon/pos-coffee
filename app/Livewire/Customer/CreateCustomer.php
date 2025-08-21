@@ -38,6 +38,11 @@ class CreateCustomer extends Component implements HasActions, HasSchemas
                     ->label('Customer Name'),
                     TextInput::make('email')
                     ->unique(),
+                    TextInput::make('address')
+                    ->label('Address')
+                    ->nullable()
+                    ->maxLength(255)
+                    ->helperText('Customer address is optional.'),
                     TextInput::make('phone')
                     ->tel(),
                 ])

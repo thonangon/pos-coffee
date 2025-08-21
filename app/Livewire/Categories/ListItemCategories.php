@@ -30,7 +30,15 @@ class ListItemCategories extends Component implements HasActions, HasSchemas, Ha
                 TextColumn::make('category_name')
                     ->searchable()
                     ->sortable(),
-            ])
+                //count of items in the category
+                TextColumn::make('items_count') 
+                    ->label('Items Count')
+                    ->counts('items')
+                    ->sortable(),
+            ])->defaultSort('category_name', 'asc')
+            ->emptyStateHeading('No Categories Found')
+            ->emptyStateDescription('You have not created any categories yet.')
+            
             ->filters([
                 //
             ])

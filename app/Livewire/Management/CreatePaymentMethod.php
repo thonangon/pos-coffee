@@ -14,7 +14,7 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
-
+use Filament\Forms\Components\FileUpload;
 
 class CreatePaymentMethod extends Component implements HasActions, HasSchemas
 {
@@ -39,6 +39,16 @@ class CreatePaymentMethod extends Component implements HasActions, HasSchemas
                     TextInput::make('name'),
                     Textarea::make('description')
                     ->unique(),
+                    FileUpload::make('logo')
+                            ->label('Logo')
+                            ->image()
+                            ->disk('public')
+                            ->directory('payment_methods')
+                            ->maxSize(2048)
+                            ->imagePreviewHeight('150') 
+                            ->preserveFilenames(), // optional
+
+                    
                 ])
             ])
             ->statePath('data')

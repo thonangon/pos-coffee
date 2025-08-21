@@ -16,13 +16,14 @@ use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
+
 
 class CreateItem extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
-
+    protected static ?string $model = Item::class;
     public ?array $data = [];
 
     public function mount(): void
@@ -42,13 +43,15 @@ class CreateItem extends Component implements HasActions, HasSchemas
                             ->label('Item Name')
                             ->required(),
                         TextInput::make('sku')
-                            ->required()
-                            ->unique(),
+                            
+                            ->disabled() // Assuming SKU is auto-generated and should not be editable
+                            ->helperText('Sku is auto-generated and cannot be changed.'),
+
                         TextInput::make('price')
                             ->prefix('$')
                             ->required()
                             ->numeric(),
-                        Select::make('category_id')
+                        Select::make('item_category_id')
                             ->relationship('category', 'category_name')
                             ->searchable()
                             ->preload()
@@ -58,7 +61,20 @@ class CreateItem extends Component implements HasActions, HasSchemas
                             ->searchable()
                             ->preload()
                             ->native(false),
-                        
+                        TextInput::make('description')
+                            ->label('Description')
+                            ->nullable()
+                            ->maxLength(500)
+                            ->helperText('A brief description of the item.'),
+                        FileUpload::make('image')
+                            ->label('Item Image')
+                            ->image()
+                            ->disk('public')
+                            ->directory('items')
+                            ->maxSize(2048)
+                            ->imagePreviewHeight('150') // preview size
+                            ->preserveFilenames(), // optional
+
                         ToggleButtons::make('status')
                             ->label('Is this Item Active?')
                             ->options([

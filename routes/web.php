@@ -22,6 +22,8 @@ use App\Livewire\Menus\ListMenu;
 use App\Livewire\POS;
 use App\Livewire\Sales\ListSales;
 use App\Livewire\Settings\Appearance;
+use App\Livewire\Settings\BranchSetting;
+use App\Livewire\Settings\Master;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+    Route::get('settings/master', Master::class)->name('settings.master');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -72,7 +75,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-payment-method',CreatePaymentMethod::class)->name('payment-method.create');
     Route::get('/manage-payment-methods',ListPaymentMethods::class)->name('payment.method.index');
     Route::get('/edit-payment-method/{record}',EditPaymentMethod::class)->name('payment-method.update');
-
+    //setting
+    Route::get('/create-branch',BranchSetting::class)->name('branch.create');
+    Route::get('/edit-branch/{recode}',BranchSetting::class)->name('branch.update');
     Route::get('/pos',POS::class)->name('pos');
 }); 
 

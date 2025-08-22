@@ -58,6 +58,10 @@
                 <flux:navlist.item icon="chart-bar" :href="route('sales.index')" :current="request()->routeIs('sales.index')"
                     wire:navigate>{{ __('Sales') }}</flux:navlist.item>
             </flux:navlist.group>
+            <flux:navlist.group :heading="__('Setttings')" class="grid">
+                <flux:navlist.item icon="chart-bar" :href="route('settings.master')" :current="request()->routeIs('settings.master')"
+                    wire:navigate>{{ __('Setttings') }}</flux:navlist.item>
+            </flux:navlist.group>
         </flux:navlist>
 
         <flux:spacer />
